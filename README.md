@@ -5,7 +5,8 @@
 Steps to build and deploy the calculator service
 
 1. git clone https://github.com/santtii/calculator-service.git
-2. docker-compose up -d --build
+2. cd calculator-service/
+3. docker-compose up -d --build
 
 ## How to run the application
 
