@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  calculator.server:
+    container_name: calculator-server
+    image: ${DOCKER_REGISTRY-}calculator.server
+    restart: unless-stopped
+    ports:
+      - "5001:80"
+      - "5002:443"
+    networks:
+      - default
+    build:
+      context: .
+      dockerfile: src/CalculatorAPI/Dockerfile
+
+  calculator.client:
+    container_name: calculator-client
+    image: ${DOCKER_REGISTRY-}calculator.client
+    restart: unless-stopped
+    stdin_open: true    # docker run -i
+    tty: true   # docker run -t
+    depends_on:
+      - calculator.server
+    networks:
+      - default
+    build:
+      context: .
+      dockerfile: src/CalculatorAPI.Client/Dockerfile
+
+networks:
+  default:
+    driver: bridge
+
